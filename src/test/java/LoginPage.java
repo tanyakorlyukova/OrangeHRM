@@ -3,13 +3,19 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
-public class LoginPage extends BaseTest {
+public class LoginPage {
+
+    private WebDriver driver;
 
     private By usernameTextbox = By.id("txtUsername");
     private By passwordTextbox = By.id("txtPassword");
     private By loginButton = By.id("btnLogin");
     private By successMessage = By.className("panelTrigger");
     private By errorMessage = By.id("spanMessage");
+
+    public LoginPage(WebDriver driver) {
+        this.driver = driver;
+    }
 
     public void validLogin(String username, String password) {
         loginForm(username,password);
