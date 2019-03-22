@@ -17,9 +17,9 @@ public class LoginPage {
         this.driver = driver;
     }
 
-    public void validLogin(String username, String password) {
+    public void validLogin(String username, String password, String message) {
         loginForm(username,password);
-        Assert.assertEquals("Welcome Admin", driver.findElement(successMessage).getText());
+        Assert.assertEquals(message, driver.findElement(successMessage).getText());
     }
 
     public void invalidLogin(String username, String password, String errMessage) {
