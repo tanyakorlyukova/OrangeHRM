@@ -30,7 +30,7 @@ public class OrangeHRM_tests extends BaseTest {
     @DataProvider(name = "addUserData")
     public Object[][] addUserdata() {
         return new String[][] {
-                {"valid", "Fiona Grace", "fiooonna", "password", "password"},
+                {"valid", "Fiona Grace", "fionna", "password", "password"},
                 {"empty", "", "", "", ""},
                 {"invalid", "d", "d", "d", "d"},
                 {"invalid password confirmation", "Hannah Flores", "hanna", "password", "otherpassword"}
