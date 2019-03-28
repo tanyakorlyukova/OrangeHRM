@@ -1,8 +1,11 @@
+package tests;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.PageFactory;
 import org.testng.annotations.AfterClass;
+import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeTest;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -11,7 +14,7 @@ public class BaseTest {
     WebDriver driver;
     private String baseURL = "https://opensource-demo.orangehrmlive.com/";
 
-    @BeforeClass
+    @BeforeTest
     public void initializeBrowser() {
         System.setProperty("webdriver.chrome.driver", "E:\\drivers\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -20,7 +23,7 @@ public class BaseTest {
         driver.get(baseURL);
     }
 
-    @AfterClass
+    @AfterTest
     public void closeBrowser() {
         driver.quit();
     }

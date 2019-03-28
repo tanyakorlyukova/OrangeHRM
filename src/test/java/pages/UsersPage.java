@@ -18,7 +18,6 @@ public class UsersPage {
     private By confirmPasswordInput = By.id("systemUser_confirmPassword");
     private By saveButton = By.id("btnSave");
 
-
     public UsersPage(WebDriver driver) {
         this.driver = driver;
     }
@@ -28,45 +27,26 @@ public class UsersPage {
         driver.findElement(addButton).click();
     }
 
-    public void addUser(String testTitle, String empName, String username, String password, String confPassword) {
+    public void addValidUser(String empName, String username, String password, String confPassword) {
+        driver.findElement(userRoleSelect).click();
+        driver.findElement(By.xpath("//option[contains(text(),'Admin')]")).click();
+        driver.findElement(statusSelect).click();
+        driver.findElement(By.xpath("//option[contains(text(),'Disabled')]")).click();
         addUserForm(empName, username, password, confPassword);
+        driver.findElement(By.xpath("//h1[contains(text(),'System Users')]"));
+        driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]"));
+    }
 
-        switch (testTitle) {
-            case "valid": validTest(username, empName);
-            case "empty": emptyTest();
-            case "invalid": invalidTest();
-            case "invalid password confirmation": invPasswConfTest();
-        }
+    public void addInvalidUser(String empName, String username, String password, String confPassword) {
+        addUserForm(empName, username, password, confPassword);
+        driver.findElement(By.xpath("//h1[contains(text(),'Add User')]"));
     }
 
     public void addUserForm(String empName, String username, String password, String confPassword) {
-        //driver.findElement(userRoleSelect);
         driver.findElement(employeeNameInput).sendKeys(empName);
         driver.findElement(usernameInput).sendKeys(username);
-        //driver.findElement(statusSelect);
         driver.findElement(passwordInput).sendKeys(password);
         driver.findElement(confirmPasswordInput).sendKeys(confPassword);
         driver.findElement(saveButton).click();
-    }
-
-    private void validTest(String username, String empName) {
-        driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]")).click();
-        Assert.assertEquals(driver.findElement(By.id("systemUser_employeeName_empName")).getText(), empName);
-    }
-
-    private void emptyTest() {
-        driver.findElement(By.xpath("//span[contains(text(),'Employee does not exist')]"));
-        driver.findElement(By.xpath("//span[contains(text(),'Required')]"));
-    }
-
-    private void invalidTest() {
-        driver.findElement(By.xpath("//span[contains(text(),'Employee does not exist')]"));
-        driver.findElement(By.xpath("//span[contains(text(),'Should have at least 5 characters')]"));
-        driver.findElement(By.xpath("//span[contains(text(),'Should have at least 8 characters')]"));
-        driver.findElement(By.xpath("//span[contains(text(),'Please enter at least 8 characters.')]"));
-    }
-
-    private void invPasswConfTest() {
-        driver.findElement(By.xpath("//span[contains(text(),'Passwords do not match')]"));
     }
 }
