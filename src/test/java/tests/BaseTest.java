@@ -14,7 +14,7 @@ public class BaseTest {
     WebDriver driver;
     private String baseURL = "https://opensource-demo.orangehrmlive.com/";
 
-    @BeforeTest
+    @BeforeClass
     public void initializeBrowser() {
         System.setProperty("webdriver.chrome.driver", "E:\\drivers\\chromedriver\\chromedriver.exe");
         driver = new ChromeDriver();
@@ -23,7 +23,7 @@ public class BaseTest {
         driver.get(baseURL);
     }
 
-    @AfterTest
+    @AfterClass
     public void closeBrowser() {
         driver.quit();
     }

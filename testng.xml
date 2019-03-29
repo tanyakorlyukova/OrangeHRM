@@ -3,7 +3,7 @@
     <test name="autoTests">
         <classes>
             <class name="tests.LoginTest" />
-            <class name="tests.AddUserTest" />
+            <class name="tests.AddUserTest"  />
         </classes>
     </test>
 </suite>
