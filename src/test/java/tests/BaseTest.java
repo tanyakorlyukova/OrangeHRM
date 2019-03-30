@@ -2,10 +2,8 @@ package tests;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.BeforeTest;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.annotations.*;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
@@ -14,10 +12,17 @@ public class BaseTest {
     WebDriver driver;
     private String baseURL = "https://opensource-demo.orangehrmlive.com/";
 
+    @Parameters("browserName")
     @BeforeClass
-    public void initializeBrowser() {
-        System.setProperty("webdriver.chrome.driver", "E:\\drivers\\chromedriver\\chromedriver.exe");
-        driver = new ChromeDriver();
+    public void initializeBrowser(String browserName) {
+        if (browserName.equals("chrome")) {
+            System.setProperty("webdriver.chrome.driver", "E:\\drivers\\chromedriver\\chromedriver.exe");
+            driver = new ChromeDriver();
+        }
+        if (browserName.equals("firefox")) {
+            System.setProperty("webdriver.gecko.driver", "E:\\drivers\\firefoxdriver\\geckodriver.exe");
+            driver = new FirefoxDriver();
+        }
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(10, SECONDS);
         driver.get(baseURL);

@@ -17,9 +17,9 @@ public class AddUserTest extends BaseTest {
     public Object[][] addValidUserdata() {
         //!!! it is necessary to change "Username" (field 2) so that there is no error "user already exists"
         return new String[][] {
-                {"Fiona Grace", "fipaoh", "password", "password"},  //all fields - valid
-                {"Fiona Grace", "grphcee", "", ""},   //password is not required
-                {"Fiona Grace", "hfpfa", "password", "password"}  //5 characters in Username (at least 5)
+                {"Fiona Grace", "sipaoh", "password", "password"},  //all fields - valid
+                {"Fiona Grace", "srphcee", "", ""},   //password is not required
+                {"Fiona Grace", "sfpfa", "password", "password"}  //5 characters in Username (at least 5)
         };
     }
 

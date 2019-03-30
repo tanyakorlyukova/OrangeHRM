@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suite name="OrangeHRMtests">
-    <test name="autoTests">
+    <test name="test_chrome">
+        <parameter name="browserName" value="chrome"></parameter>
+        <classes>
+            <class name="tests.LoginTest" />
+            <class name="tests.AddUserTest"  />
+        </classes>
+    </test>
+
+    <test name="test_firefox">
+        <parameter name="browserName" value="firefox"></parameter>
         <classes>
             <class name="tests.LoginTest" />
             <class name="tests.AddUserTest"  />
