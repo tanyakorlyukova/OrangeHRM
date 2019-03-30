@@ -2,6 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class UsersPage {
@@ -17,29 +19,39 @@ public class UsersPage {
     private By passwordInput = By.id("systemUser_password");
     private By confirmPasswordInput = By.id("systemUser_confirmPassword");
     private By saveButton = By.id("btnSave");
+    private By successfullySaved = By.xpath("//h1[contains(text(),'System Users')]");
+    private By addUserText = By.xpath("//h1[contains(text(),'Add User')]");
+    private By selectAdmin = By.xpath("//option[contains(text(),'Admin')]");
+    private By selectDisabled = By.xpath("//option[contains(text(),'Disabled')]");
 
     public UsersPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void openAddUserForm() {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(adminModule));
         driver.findElement(adminModule).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(addButton));
         driver.findElement(addButton).click();
     }
 
     public void addValidUser(String empName, String username, String password, String confPassword) {
         driver.findElement(userRoleSelect).click();
-        driver.findElement(By.xpath("//option[contains(text(),'Admin')]")).click();
+        driver.findElement(selectAdmin).click();
         driver.findElement(statusSelect).click();
-        driver.findElement(By.xpath("//option[contains(text(),'Disabled')]")).click();
+        driver.findElement(selectDisabled).click();
         addUserForm(empName, username, password, confPassword);
-        driver.findElement(By.xpath("//h1[contains(text(),'System Users')]"));
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(successfullySaved));
+        driver.findElement(successfullySaved);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(text(),'" + username + "')]")));
         driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]"));
     }
 
     public void addInvalidUser(String empName, String username, String password, String confPassword) {
         addUserForm(empName, username, password, confPassword);
-        driver.findElement(By.xpath("//h1[contains(text(),'Add User')]"));
+        driver.findElement(addUserText);
     }
 
     public void addUserForm(String empName, String username, String password, String confPassword) {

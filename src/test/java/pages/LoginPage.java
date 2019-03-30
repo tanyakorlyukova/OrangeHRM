@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 public class LoginPage {
@@ -21,6 +23,8 @@ public class LoginPage {
 
     public void validLogin(String username, String password, String message) {
         loginForm(username,password);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(successMessage));
         Assert.assertEquals(message, driver.findElement(successMessage).getText());
     }
 
