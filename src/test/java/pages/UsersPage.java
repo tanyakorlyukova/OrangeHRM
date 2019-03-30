@@ -23,13 +23,18 @@ public class UsersPage {
     private By addUserText = By.xpath("//h1[contains(text(),'Add User')]");
     private By selectAdmin = By.xpath("//option[contains(text(),'Admin')]");
     private By selectDisabled = By.xpath("//option[contains(text(),'Disabled')]");
+    private By searchTextbox = By.id("searchSystemUser_userName");
+    private By searchButton = By.id("searchBtn");
+    private By selectAllUsers = By.id("ohrmList_chkSelectAll");
+    private By deleteButton = By.id("btnDelete");
+    private By dialogDeleteButton = By.id("dialogDeleteBtn");
 
     public UsersPage(WebDriver driver) {
         this.driver = driver;
     }
 
     public void openAddUserForm() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        WebDriverWait wait = new WebDriverWait(driver, 15);
         wait.until(ExpectedConditions.presenceOfElementLocated(adminModule));
         driver.findElement(adminModule).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(addButton));
@@ -60,5 +65,16 @@ public class UsersPage {
         driver.findElement(passwordInput).sendKeys(password);
         driver.findElement(confirmPasswordInput).sendKeys(confPassword);
         driver.findElement(saveButton).click();
+    }
+
+    public void deleteUser(String username) {
+        driver.findElement(searchTextbox).sendKeys(username);
+        driver.findElement(searchButton).click();
+        WebDriverWait wait = new WebDriverWait(driver, 8);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(text(),'" + username + "')]")));
+        driver.findElement(selectAllUsers).click();
+        driver.findElement(deleteButton).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(dialogDeleteButton));
+        driver.findElement(dialogDeleteButton).click();
     }
 }

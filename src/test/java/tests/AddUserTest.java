@@ -15,11 +15,10 @@ public class AddUserTest extends BaseTest {
 
     @DataProvider(name = "addValidUserData")
     public Object[][] addValidUserdata() {
-        //!!! it is necessary to change "Username" (field 2) so that there is no error "user already exists"
         return new String[][] {
-                {"Fiona Grace", "sipaoh", "password", "password"},  //all fields - valid
-                {"Fiona Grace", "srphcee", "", ""},   //password is not required
-                {"Fiona Grace", "sfpfa", "password", "password"}  //5 characters in Username (at least 5)
+                {"Larry Page", "userlarry", "password", "password"},  //all fields - valid
+                {"Larry Page", "itislarry", "", ""},   //password is not required
+                {"Larry Page", "hhhhl", "password", "password"}  //5 characters in Username (at least 5)
         };
     }
 
@@ -28,11 +27,11 @@ public class AddUserTest extends BaseTest {
         return new String[][] {
                 {"", "", "", ""},   //empty
                 {"d", "d", "d", "d"},   //invalid
-                {"Hannah Flores", "hanna", "password", "otherpassword"},   //different password
-                {"Fiona Grace", "Admin", "password", "password"},   //user Admin exist
-                {"Hannah Flores", "hana", "password", "password"},  //4 characters in Username (at least 5)
+                {"Larry Page", "hanna", "password", "otherpassword"},   //different password
+                {"Larry Page", "Admin", "password", "password"},   //user Admin exist
+                {"Larry Page", "page", "password", "password"},  //4 characters in Username (at least 5)
                 {"notexistemployee", "exist", "password", "password"},  //employee does not exist
-                {"Fiona Grace", "graaaaaaace", "sssssss", "sssssss"}   //7 characters in Password (at least 8)
+                {"Larry Page", "laaaaaary", "sssssss", "sssssss"}   //7 characters in Password (at least 8)
         };
     }
 
@@ -41,6 +40,7 @@ public class AddUserTest extends BaseTest {
         UsersPage usersPage = new UsersPage(driver);
         usersPage.openAddUserForm();
         usersPage.addValidUser(empName, username, password, confPassword);
+        usersPage.deleteUser(username);
     }
 
     @Test(dataProvider = "addInvalidUserData", groups = "addUser")
