@@ -21,10 +21,14 @@ public class LoginPage {
         this.driver = driver;
     }
 
+    private void wait(By element) {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(element));
+    }
+
     public void validLogin(String username, String password, String message) {
         loginForm(username,password);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(successMessage));
+        wait(successMessage);
         Assert.assertEquals(message, driver.findElement(successMessage).getText());
     }
 

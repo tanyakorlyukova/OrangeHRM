@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 
-public class BaseTest {
+public class BaseTest extends TestDataProvider{
 
     WebDriver driver;
     private String baseURL = "https://opensource-demo.orangehrmlive.com/";

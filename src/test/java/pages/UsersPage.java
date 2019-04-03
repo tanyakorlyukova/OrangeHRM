@@ -33,11 +33,15 @@ public class UsersPage {
         this.driver = driver;
     }
 
+    private void wait(By element) {
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        wait.until(ExpectedConditions.presenceOfElementLocated(element));
+    }
+
     public void openAddUserForm() {
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        wait.until(ExpectedConditions.presenceOfElementLocated(adminModule));
+        wait(adminModule);
         driver.findElement(adminModule).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(addButton));
+        wait(addButton);
         driver.findElement(addButton).click();
     }
 
@@ -47,10 +51,9 @@ public class UsersPage {
         driver.findElement(statusSelect).click();
         driver.findElement(selectDisabled).click();
         addUserForm(empName, username, password, confPassword);
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(successfullySaved));
+        wait(successfullySaved);
         driver.findElement(successfullySaved);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(text(),'" + username + "')]")));
+        wait(By.xpath("//a[contains(text(),'" + username + "')]"));
         driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]"));
     }
 
@@ -70,11 +73,10 @@ public class UsersPage {
     public void deleteUser(String username) {
         driver.findElement(searchTextbox).sendKeys(username);
         driver.findElement(searchButton).click();
-        WebDriverWait wait = new WebDriverWait(driver, 8);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//a[contains(text(),'" + username + "')]")));
+        wait(By.xpath("//a[contains(text(),'" + username + "')]"));
         driver.findElement(selectAllUsers).click();
         driver.findElement(deleteButton).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(dialogDeleteButton));
+        wait(dialogDeleteButton);
         driver.findElement(dialogDeleteButton).click();
     }
 }
