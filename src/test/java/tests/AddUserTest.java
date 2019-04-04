@@ -13,7 +13,7 @@ public class AddUserTest extends BaseTest {
         driver.findElement(By.id("btnLogin")).click();
     }
 
-    @Test(dataProvider = "addValidUserData", groups = "addUser")
+    @Test(dataProvider = "addValidUserData", dataProviderClass = TestDataProvider.class, groups = "addUser")
     public void addValidUserTest(String empName, String username, String password, String confPassword) {
         UsersPage usersPage = new UsersPage(driver);
         usersPage.openAddUserForm();
@@ -26,7 +26,7 @@ public class AddUserTest extends BaseTest {
         //usersPage.deleteUser(username);
     }
 
-    @Test(dataProvider = "addInvalidUserData", groups = "addUser")
+    @Test(dataProvider = "addInvalidUserData", dataProviderClass = TestDataProvider.class, groups = "addUser")
     public void addInvalidUserTest(String empName, String username, String password, String confPassword) {
         UsersPage usersPage = new UsersPage(driver);
         usersPage.openAddUserForm();

@@ -5,7 +5,7 @@ import org.testng.annotations.DataProvider;
 public class TestDataProvider {
 
     @DataProvider(name = "loginData")
-    public Object[][] loginData() {
+    public static Object[][] loginData() {
         return new String[][] {
                 {"", "", "Username cannot be empty"},
                 {"invalid", "admin123", "Invalid credentials"},
@@ -16,7 +16,7 @@ public class TestDataProvider {
     }
 
     @DataProvider(name = "addValidUserData")
-    public Object[][] addValidUserdata() {
+    public static Object[][] addValidUserdata() {
         return new String[][] {
                 {"John Smith", "hserfdrry", "password", "password"},  //all fields - valid
             //    {"John Smith", "htisldrry", "", ""},   //password is not required
@@ -25,7 +25,7 @@ public class TestDataProvider {
     }
 
     @DataProvider(name = "addInvalidUserData")
-    public Object[][] addInvalidUserdata() {
+    public static Object[][] addInvalidUserdata() {
         return new String[][] {
                 {"", "", "", ""},   //empty
                 {"d", "d", "d", "d"},   //invalid

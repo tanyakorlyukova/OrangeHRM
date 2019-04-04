@@ -7,7 +7,7 @@ import pages.LoginPage;
 
 public class LoginTest extends BaseTest {
 
-    @Test(dataProvider = "loginData")
+    @Test(dataProvider = "loginData", dataProviderClass = TestDataProvider.class)
     public void LoginTest_Invalid(String username, String password, String message) {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginForm(username, password);
