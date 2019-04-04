@@ -4,7 +4,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
 public class UsersPage {
 
@@ -19,8 +18,6 @@ public class UsersPage {
     private By passwordInput = By.id("systemUser_password");
     private By confirmPasswordInput = By.id("systemUser_confirmPassword");
     private By saveButton = By.id("btnSave");
-    private By successfullySaved = By.xpath("//h1[contains(text(),'System Users')]");
-    private By addUserText = By.xpath("//h1[contains(text(),'Add User')]");
     private By selectAdmin = By.xpath("//option[contains(text(),'Admin')]");
     private By selectDisabled = By.xpath("//option[contains(text(),'Disabled')]");
     private By searchTextbox = By.id("searchSystemUser_userName");
@@ -33,7 +30,7 @@ public class UsersPage {
         this.driver = driver;
     }
 
-    private void wait(By element) {
+    public void wait(By element) {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.presenceOfElementLocated(element));
     }
@@ -51,15 +48,6 @@ public class UsersPage {
         driver.findElement(statusSelect).click();
         driver.findElement(selectDisabled).click();
         addUserForm(empName, username, password, confPassword);
-        wait(successfullySaved);
-        driver.findElement(successfullySaved);
-        wait(By.xpath("//a[contains(text(),'" + username + "')]"));
-        driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]"));
-    }
-
-    public void addInvalidUser(String empName, String username, String password, String confPassword) {
-        addUserForm(empName, username, password, confPassword);
-        driver.findElement(addUserText);
     }
 
     public void addUserForm(String empName, String username, String password, String confPassword) {

@@ -18,6 +18,11 @@ public class AddUserTest extends BaseTest {
         UsersPage usersPage = new UsersPage(driver);
         usersPage.openAddUserForm();
         usersPage.addValidUser(empName, username, password, confPassword);
+
+        usersPage.wait(By.xpath("//h1[contains(text(),'System Users')]"));
+        driver.findElement(By.xpath("//h1[contains(text(),'System Users')]"));
+        usersPage.wait(By.xpath("//a[contains(text(),'" + username + "')]"));
+        driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]"));
         //usersPage.deleteUser(username);
     }
 
@@ -25,6 +30,8 @@ public class AddUserTest extends BaseTest {
     public void addInvalidUserTest(String empName, String username, String password, String confPassword) {
         UsersPage usersPage = new UsersPage(driver);
         usersPage.openAddUserForm();
-        usersPage.addInvalidUser(empName, username, password, confPassword);
+        usersPage.addUserForm(empName, username, password, confPassword);
+
+        driver.findElement(By.xpath("//h1[contains(text(),'Add User')]"));
     }
 }
