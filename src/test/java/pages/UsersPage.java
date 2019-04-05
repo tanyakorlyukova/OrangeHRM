@@ -2,12 +2,8 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class UsersPage {
-
-    private WebDriver driver;
+public class UsersPage extends CommonPageMethods {
 
     private By adminModule = By.id("menu_admin_viewAdminModule");
     private By addButton = By.id("btnAdd");
@@ -27,18 +23,13 @@ public class UsersPage {
     private By dialogDeleteButton = By.id("dialogDeleteBtn");
 
     public UsersPage(WebDriver driver) {
-        this.driver = driver;
-    }
-
-    public void wait(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.presenceOfElementLocated(element));
+        super(driver);
     }
 
     public void openAddUserForm() {
-        wait(adminModule);
+        waitForElement(adminModule);
         driver.findElement(adminModule).click();
-        wait(addButton);
+        waitForElement(addButton);
         driver.findElement(addButton).click();
     }
 
@@ -48,7 +39,7 @@ public class UsersPage {
         driver.findElement(statusSelect).click();
         driver.findElement(selectDisabled).click();
         addUserForm(empName, username, password, confPassword);
-        wait(By.xpath("//h1[contains(text(),'System Users')]"));
+        waitForElement(By.xpath("//h1[contains(text(),'System Users')]"));
     }
 
     public void addUserForm(String empName, String username, String password, String confPassword) {
@@ -59,13 +50,21 @@ public class UsersPage {
         driver.findElement(saveButton).click();
     }
 
+    public String getAddUserPageText() {
+        return driver.findElement(By.id("UserHeading")).getText();
+    }
+
+    public String getUsernameText(String username) {
+        return driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]")).getText();
+    }
+
     public void deleteUser(String username) {
         driver.findElement(searchTextbox).sendKeys(username);
         driver.findElement(searchButton).click();
-        wait(By.xpath("//a[contains(text(),'" + username + "')]"));
+        waitForElement(By.xpath("//a[contains(text(),'" + username + "')]"));
         driver.findElement(selectAllUsers).click();
         driver.findElement(deleteButton).click();
-        wait(dialogDeleteButton);
+        waitForElement(dialogDeleteButton);
         driver.findElement(dialogDeleteButton).click();
     }
 }
