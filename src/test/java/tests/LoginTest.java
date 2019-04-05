@@ -11,14 +11,13 @@ public class LoginTest extends BaseTest {
     public void LoginTest_Invalid(String username, String password, String message) {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginForm(username, password);
-        Assert.assertEquals(message, driver.findElement(By.id("spanMessage")).getText());
+        Assert.assertEquals(driver.findElement(By.id("spanMessage")).getText(), message);
     }
 
     @Test
     public void LoginTest_Valid() {
         LoginPage loginPage = new LoginPage(driver);
         loginPage.loginForm("Admin", "admin123");
-        loginPage.wait(By.className("panelTrigger"));
-        Assert.assertEquals("Welcome Admin", driver.findElement(By.className("panelTrigger")).getText());
+        Assert.assertEquals(driver.findElement(By.className("panelTrigger")).getText(), "Welcome Admin");
     }
 }

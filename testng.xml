@@ -8,11 +8,11 @@
         </classes>
     </test>
 
-    <test name="test_firefox">
+ <!--   <test name="test_firefox">
         <parameter name="browserName" value="firefox"></parameter>
         <classes>
             <class name="tests.LoginTest" />
             <class name="tests.AddUserTest"  />
         </classes>
-    </test>
+    </test> -->
 </suite>

@@ -48,6 +48,7 @@ public class UsersPage {
         driver.findElement(statusSelect).click();
         driver.findElement(selectDisabled).click();
         addUserForm(empName, username, password, confPassword);
+        wait(By.xpath("//h1[contains(text(),'System Users')]"));
     }
 
     public void addUserForm(String empName, String username, String password, String confPassword) {
