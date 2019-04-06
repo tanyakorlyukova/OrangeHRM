@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class UsersPage extends CommonPageMethods {
+public class UsersPage extends BasePage {
 
     private By adminModule = By.id("menu_admin_viewAdminModule");
     private By addButton = By.id("btnAdd");
@@ -16,11 +16,6 @@ public class UsersPage extends CommonPageMethods {
     private By saveButton = By.id("btnSave");
     private By selectAdmin = By.xpath("//option[contains(text(),'Admin')]");
     private By selectDisabled = By.xpath("//option[contains(text(),'Disabled')]");
-    private By searchTextbox = By.id("searchSystemUser_userName");
-    private By searchButton = By.id("searchBtn");
-    private By selectAllUsers = By.id("ohrmList_chkSelectAll");
-    private By deleteButton = By.id("btnDelete");
-    private By dialogDeleteButton = By.id("dialogDeleteBtn");
 
     public UsersPage(WebDriver driver) {
         super(driver);
@@ -28,43 +23,34 @@ public class UsersPage extends CommonPageMethods {
 
     public void openAddUserForm() {
         waitForElement(adminModule);
-        driver.findElement(adminModule).click();
+        clickOn(adminModule);
         waitForElement(addButton);
-        driver.findElement(addButton).click();
+        clickOn(addButton);
     }
 
     public void addValidUser(String empName, String username, String password, String confPassword) {
-        driver.findElement(userRoleSelect).click();
-        driver.findElement(selectAdmin).click();
-        driver.findElement(statusSelect).click();
-        driver.findElement(selectDisabled).click();
+        clickOn(userRoleSelect);
+        clickOn(selectAdmin);
+        clickOn(statusSelect);
+        clickOn(selectDisabled);
         addUserForm(empName, username, password, confPassword);
         waitForElement(By.xpath("//h1[contains(text(),'System Users')]"));
     }
 
     public void addUserForm(String empName, String username, String password, String confPassword) {
-        driver.findElement(employeeNameInput).sendKeys(empName);
-        driver.findElement(usernameInput).sendKeys(username);
-        driver.findElement(passwordInput).sendKeys(password);
-        driver.findElement(confirmPasswordInput).sendKeys(confPassword);
-        driver.findElement(saveButton).click();
+        typeIn(employeeNameInput, empName);
+        typeIn(usernameInput, username);
+        typeIn(passwordInput, password);
+        typeIn(confirmPasswordInput, confPassword);
+        clickOn(saveButton);
     }
 
     public String getAddUserPageText() {
-        return driver.findElement(By.id("UserHeading")).getText();
+        return getTextFrom(By.id("UserHeading"));
     }
 
     public String getUsernameText(String username) {
-        return driver.findElement(By.xpath("//a[contains(text(),'" + username + "')]")).getText();
+        return getTextFrom(By.xpath("//a[contains(text(),'" + username + "')]"));
     }
 
-    public void deleteUser(String username) {
-        driver.findElement(searchTextbox).sendKeys(username);
-        driver.findElement(searchButton).click();
-        waitForElement(By.xpath("//a[contains(text(),'" + username + "')]"));
-        driver.findElement(selectAllUsers).click();
-        driver.findElement(deleteButton).click();
-        waitForElement(dialogDeleteButton);
-        driver.findElement(dialogDeleteButton).click();
-    }
 }

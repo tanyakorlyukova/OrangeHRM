@@ -3,7 +3,7 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 
-public class LoginPage extends CommonPageMethods {
+public class LoginPage extends BasePage {
 
     private By usernameTextbox = By.id("txtUsername");
     private By passwordTextbox = By.id("txtPassword");
@@ -14,16 +14,16 @@ public class LoginPage extends CommonPageMethods {
     }
 
     public void loginForm(String username, String password) {
-        driver.findElement(usernameTextbox).sendKeys(username);
-        driver.findElement(passwordTextbox).sendKeys(password);
-        driver.findElement(loginButton).click();
+        typeIn(usernameTextbox, username);
+        typeIn(passwordTextbox, password);
+        clickOn(loginButton);
     }
 
     public String getErrorText() {
-        return driver.findElement(By.id("spanMessage")).getText();
+        return getTextFrom(By.id("spanMessage"));
     }
 
     public String getSuccessText() {
-        return driver.findElement(By.className("panelTrigger")).getText();
+        return getTextFrom(By.className("panelTrigger"));
     }
 }
