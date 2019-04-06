@@ -28,7 +28,7 @@ public class BasePage {
     }
 
     public String getTextFrom(By locator) {
-        find(locator).getText();
+        return find(locator).getText();
     }
 
     public void typeIn(By locator, String text) {

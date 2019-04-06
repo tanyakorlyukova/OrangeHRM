@@ -18,9 +18,9 @@ public class TestDataProvider {
     @DataProvider(name = "addValidUserData")
     public static Object[][] addValidUserdata() {
         return new String[][] {
-                {"John Smith", "asfrfdrsy", "password", "password"},  //all fields - valid
-                {"John Smith", "atfsldrsy", "", ""},   //password is not required
-                {"John Smith", "ahfsf", "password", "password"}  //5 characters in Username (at least 5)
+                {"John Smith", "amfrfdrsy", "password", "password"},  //all fields - valid
+                {"John Smith", "amfsldrsy", "", ""},   //password is not required
+                {"John Smith", "amfsf", "password", "password"}  //5 characters in Username (at least 5)
         };
     }
 
