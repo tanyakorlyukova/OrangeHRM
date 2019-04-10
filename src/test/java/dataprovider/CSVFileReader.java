@@ -18,23 +18,9 @@ public class CSVFileReader {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
-            writeData(new String[] {"notfound"}, "notfound.txt");
         } catch (IOException e) {
             e.printStackTrace();
-            writeData(new String[] {"otherserror"}, "other.txt");
         }
         return data;
-    }
-
-    public void writeData(String[] data, String filename) {
-        try {
-            FileWriter wr = new FileWriter(filename);
-            for (int i=0; i<data.length;i++) {
-                wr.write(data[i]);
-            }
-            wr.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
