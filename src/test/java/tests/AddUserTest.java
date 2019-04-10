@@ -1,6 +1,6 @@
 package tests;
 
-import org.openqa.selenium.By;
+import dataprovider.TestDataProvider;
 import org.testng.Assert;
 import org.testng.annotations.*;
 import pages.LoginPage;

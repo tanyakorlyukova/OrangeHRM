@@ -1,5 +1,6 @@
 package tests;
 
+import dataprovider.TestDataProvider;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import pages.LoginPage;
