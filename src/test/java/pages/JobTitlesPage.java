@@ -2,6 +2,9 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class JobTitlesPage extends BasePage {
 
@@ -15,7 +18,7 @@ public class JobTitlesPage extends BasePage {
     private By saveButton = By.id("btnSave");
     private By deleteButton = By.id("btnDelete");
     private By dialogDeleteButton = By.id("dialogDeleteBtn");
-
+    private By addConfirmation = By.id("saveHobTitleHeading");
 
     public JobTitlesPage(WebDriver driver) {
         super(driver);
@@ -40,11 +43,10 @@ public class JobTitlesPage extends BasePage {
     }
 
     public void editJobTitle(String previousTitle, String newTitle, String newDescription, String newNote) {
+        addJobTitle(previousTitle, "", "");
         clickOn(By.xpath("//tr/td/a[contains(text(),'" + previousTitle + "')]"));
         clickOn(saveButton);
         clear(titleInput);
-        clear(descriptionInput);
-        clear(noteInput);
         jobTitleForm(newTitle, newDescription, newNote);
     }
 
@@ -54,5 +56,21 @@ public class JobTitlesPage extends BasePage {
         clickOn(deleteButton);
         waitForElement(dialogDeleteButton);
         clickOn(dialogDeleteButton);
+    }
+
+    //PROBLEM - method return false in each case
+    public boolean isFound(String title) {
+        List<WebElement> allTitles = findElements(By.xpath("//td/a"));
+        boolean isFound = false;
+        for(int i = 0; i < allTitles.size(); i++) {
+            if(allTitles.get(i).getText() == title) {
+                isFound = true;
+            }
+        }
+        return isFound;
+    }
+
+    public String jobTitleText() {
+        return getTextFrom(addConfirmation);
     }
 }

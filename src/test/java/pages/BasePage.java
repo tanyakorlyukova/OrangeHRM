@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.List;
+
 public class BasePage {
 
     WebDriver driver;
@@ -21,6 +23,10 @@ public class BasePage {
 
     protected WebElement find(By locator){
         return driver.findElement(locator);
+    }
+
+    protected List<WebElement> findElements(By locator) {
+        return driver.findElements(locator);
     }
 
     protected void clickOn(By locator) {

@@ -1,5 +1,6 @@
 package tests;
 
+import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
 import pages.JobTitlesPage;
@@ -14,17 +15,35 @@ public class JobTitlesTest extends BaseTest {
     }
 
     @Test(groups = "JobTitles")
-    public void addJobTitleTest() {
+    public void addValidJobTitleTest() {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
         jobTitlesPage.addJobTitle("QA Engineer", "The best job", "I think so");
+        Assert.assertTrue(jobTitlesPage.isFound("QA Engineer"));
     }
 
     @Test(groups = "JobTitles")
-    public void editJobTitleTest() {
+    public void addInvalidJobTitleTest() {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
-        jobTitlesPage.editJobTitle("QA Engineer", "Automation QA", "Perfect job", "I think so");
+        jobTitlesPage.addJobTitle("", "", "");
+        Assert.assertEquals(jobTitlesPage.jobTitleText(), "Add Job Title");
+    }
+
+    @Test(groups = "JobTitles")
+    public void editOnValidJobTitleTest() {
+        JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
+        jobTitlesPage.openJobTitlesPage();
+        jobTitlesPage.editJobTitle("for editing", "Automation QA", "Perfect job", "I think so");
+        Assert.assertTrue(jobTitlesPage.isFound("Automation QA"));
+    }
+
+    @Test(groups = "JobTitles")
+    public void editOnInvalidJobTitleTest() {
+        JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
+        jobTitlesPage.openJobTitlesPage();
+        jobTitlesPage.editJobTitle("for invalid editing", "", "", "");
+        Assert.assertEquals(jobTitlesPage.jobTitleText(), "Edit Job Title");
     }
 
     @Test(groups = "JobTitles")
@@ -32,6 +51,7 @@ public class JobTitlesTest extends BaseTest {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
         jobTitlesPage.deleteJobTitle("forDeletion");
+        Assert.assertFalse(jobTitlesPage.isFound("forDeletion"));
     }
 
 }
