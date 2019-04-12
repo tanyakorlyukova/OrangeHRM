@@ -42,6 +42,7 @@ public class UsersPage extends BasePage {
         typeIn(usernameInput, username);
         typeIn(passwordInput, password);
         typeIn(confirmPasswordInput, confPassword);
+        waitForElement(saveButton);
         clickOn(saveButton);
     }
 
