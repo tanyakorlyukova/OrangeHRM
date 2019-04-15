@@ -2,7 +2,6 @@ package dataprovider;
 
 import org.testng.annotations.DataProvider;
 
-
 public class TestDataProvider {
 
     @DataProvider(name = "loginData")
@@ -21,5 +20,29 @@ public class TestDataProvider {
     public static Object[][] addInvalidUserdata() {
         CSVFileReader reader = new CSVFileReader();
         return reader.getCSVData("src\\test\\resources\\invalidUserData.csv", 7, 4);
+    }
+
+    @DataProvider(name = "addValidJobTitle")
+    public static Object[][] addValidJobTitle() {
+        CSVFileReader reader = new CSVFileReader();
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addValidData.csv", 1, 4);
+    }
+
+    @DataProvider(name = "addInvalidJobTitle")
+    public static Object[][] addInvalidJobTitle() {
+        CSVFileReader reader = new CSVFileReader();
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addInvalidData.csv", 1, 4);
+    }
+
+    @DataProvider(name = "editOnValidJobTitle")
+    public static Object[][] editOnvalidJobTitle() {
+        CSVFileReader reader = new CSVFileReader();
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnValidData.csv", 1, 4);
+    }
+
+    @DataProvider(name = "editOnInvalidJobTitle")
+    public static Object[][] editOnInvalidJobTitle() {
+        CSVFileReader reader = new CSVFileReader();
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnInvalidData.csv", 1, 5);
     }
 }

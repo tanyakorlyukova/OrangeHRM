@@ -1,5 +1,6 @@
 package tests;
 
+import dataprovider.TestDataProvider;
 import org.testng.Assert;
 import org.testng.annotations.BeforeGroups;
 import org.testng.annotations.Test;
@@ -14,35 +15,35 @@ public class JobTitlesTest extends BaseTest {
         loginPage.loginForm("Admin", "admin123");
     }
 
-    @Test(groups = "JobTitles")
-    public void addValidJobTitleTest() {
+    @Test(dataProvider = "addValidJobTitle", dataProviderClass = TestDataProvider.class, groups = "JobTitles")
+    public void addValidJobTitleTest(String title, String description, String path, String note) {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
-        jobTitlesPage.addJobTitle("QA Engineer", "The best job", "I think so");
-        Assert.assertTrue(jobTitlesPage.isFound("QA Engineer"));
+        jobTitlesPage.addJobTitle(title, description, path, note);
+        Assert.assertTrue(jobTitlesPage.isFound(title));
     }
 
-    @Test(groups = "JobTitles")
-    public void addInvalidJobTitleTest() {
+    @Test(dataProvider = "addInvalidJobTitle", dataProviderClass = TestDataProvider.class, groups = "JobTitles")
+    public void addInvalidJobTitleTest(String title, String description, String path, String note) {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
-        jobTitlesPage.addJobTitle("", "", "");
+        jobTitlesPage.addJobTitle(title, description, path, note);
         Assert.assertEquals(jobTitlesPage.jobTitleText(), "Add Job Title");
     }
 
-    @Test(groups = "JobTitles")
-    public void editOnValidJobTitleTest() {
+    @Test(dataProvider = "editOnValidJobTitle", dataProviderClass = TestDataProvider.class, groups = "JobTitles")
+    public void editOnValidJobTitleTest(String title, String description, String path, String note) {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
-        jobTitlesPage.editJobTitle("for editing", "Automation QA", "Perfect job", "I think so");
-        Assert.assertTrue(jobTitlesPage.isFound("Automation QA"));
+        jobTitlesPage.editJobTitle("for editing", title, description, path, note);
+        Assert.assertTrue(jobTitlesPage.isFound(title));
     }
 
-    @Test(groups = "JobTitles")
-    public void editOnInvalidJobTitleTest() {
+    @Test(dataProvider = "editOnInvalidJobTitle", dataProviderClass = TestDataProvider.class, groups = "JobTitles")
+    public void editOnInvalidJobTitleTest(String previous, String title, String description, String path, String note) {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
-        jobTitlesPage.editJobTitle("for invalid editing", "", "", "");
+        jobTitlesPage.editJobTitle(previous, title, description, path, note);
         Assert.assertEquals(jobTitlesPage.jobTitleText(), "Edit Job Title");
     }
 

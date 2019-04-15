@@ -3,9 +3,9 @@
     <test name="test_chrome">
         <parameter name="browserName" value="chrome"></parameter>
         <classes>
-            <class name ="tests.JobTitlesTest" />
-        <!--    <class name="tests.LoginTest" />
-            <class name="tests.AddUserTest"  />  -->
+                <class name ="tests.JobTitlesTest" />
+            <!--     <class name="tests.LoginTest" />
+                 <class name="tests.AddUserTest"  />  -->
         </classes>
     </test>
 
