@@ -16,12 +16,6 @@ public class CSVFileReader {
                 data[i] = allRows.get(i);
             }
 
-            /*for (int i = 0; i < row; i++) {
-                String[] line = csvreader.readNext();
-                for (int j = 0; j < line.length; j++) {
-                    data[i][j] = line[j];
-                }
-            } */
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

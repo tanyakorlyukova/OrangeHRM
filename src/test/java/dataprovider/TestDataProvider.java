@@ -25,24 +25,24 @@ public class TestDataProvider {
     @DataProvider(name = "addValidJobTitle")
     public static Object[][] addValidJobTitle() {
         CSVFileReader reader = new CSVFileReader();
-        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addValidData.csv", 1, 4);
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addValidData.csv", 4, 4);
     }
 
     @DataProvider(name = "addInvalidJobTitle")
     public static Object[][] addInvalidJobTitle() {
         CSVFileReader reader = new CSVFileReader();
-        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addInvalidData.csv", 1, 4);
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addInvalidData.csv", 5, 4);
     }
 
     @DataProvider(name = "editOnValidJobTitle")
     public static Object[][] editOnvalidJobTitle() {
         CSVFileReader reader = new CSVFileReader();
-        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnValidData.csv", 1, 4);
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnValidData.csv", 2, 4);
     }
 
     @DataProvider(name = "editOnInvalidJobTitle")
     public static Object[][] editOnInvalidJobTitle() {
         CSVFileReader reader = new CSVFileReader();
-        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnInvalidData.csv", 1, 5);
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnInvalidData.csv", 5, 5);
     }
 }

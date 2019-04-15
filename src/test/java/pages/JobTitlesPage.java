@@ -44,7 +44,8 @@ public class JobTitlesPage extends BasePage {
     }
 
     public void editJobTitle(String previousTitle, String newTitle, String newDescription, String newPath, String newNote) {
-        addJobTitle(previousTitle, "", "", "");
+        String path = "E:\\Workspace Java\\OrangeHRM\\src\\test\\resources\\JobTitlesData\\jobSpecs\\1.docx";
+        addJobTitle(previousTitle, "", path, "");
         clickOn(By.xpath("//tr/td/a[contains(text(),'" + previousTitle + "')]"));
         clickOn(saveButton);
         clear(titleInput);
