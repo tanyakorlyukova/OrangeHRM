@@ -3,6 +3,8 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+
+import java.io.File;
 import java.util.List;
 
 public class JobTitlesPage extends BasePage {
@@ -38,22 +40,26 @@ public class JobTitlesPage extends BasePage {
         clickOn(saveButton);
     }
 
-    public void addJobTitle(String title, String description, String path, String note) {
+    public void addJobTitle(String title, String description, String fileName, String note) {
+        waitForElement(addButton);
         clickOn(addButton);
-        jobTitleForm(title, description, path, note);
+        jobTitleForm(title, description, getFilePath(fileName), note);
     }
 
-    public void editJobTitle(String previousTitle, String newTitle, String newDescription, String newPath, String newNote) {
-        String path = "E:\\Workspace Java\\OrangeHRM\\src\\test\\resources\\JobTitlesData\\jobSpecs\\1.docx";
-        addJobTitle(previousTitle, "", path, "");
+    public void editJobTitle(String previousTitle, String newTitle, String newDescription, String fileName, String newNote) {
+        addJobTitle(previousTitle, "", "", "");
         clickOn(By.xpath("//tr/td/a[contains(text(),'" + previousTitle + "')]"));
         clickOn(saveButton);
         clear(titleInput);
-        jobTitleForm(newTitle, newDescription, newPath, newNote);
+        jobTitleForm(newTitle, newDescription, getFilePath(fileName), newNote);
     }
 
     public void deleteJobTitle(String title) {
         addJobTitle(title, "", "", "");
+        delete(title);
+    }
+
+    public void delete(String title) {
         clickOn(By.xpath("//a[contains(text(),'" + title + "')]/../../td/input"));
         clickOn(deleteButton);
         waitForElement(dialogDeleteButton);
@@ -75,5 +81,8 @@ public class JobTitlesPage extends BasePage {
         return getTextFrom(addConfirmation);
     }
 
-
+    private String getFilePath(String fileName) {
+            File jobSpec = new File("src/test/resources/JobTitlesData/jobSpecs/" + fileName);
+            return jobSpec.getAbsolutePath();
+    }
 }

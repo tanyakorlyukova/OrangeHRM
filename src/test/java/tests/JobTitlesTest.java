@@ -21,6 +21,8 @@ public class JobTitlesTest extends BaseTest {
         jobTitlesPage.openJobTitlesPage();
         jobTitlesPage.addJobTitle(title, description, path, note);
         Assert.assertTrue(jobTitlesPage.isFound(title));
+
+        jobTitlesPage.delete(title);
     }
 
     @Test(dataProvider = "addInvalidJobTitle", dataProviderClass = TestDataProvider.class, groups = "JobTitles")
@@ -37,6 +39,8 @@ public class JobTitlesTest extends BaseTest {
         jobTitlesPage.openJobTitlesPage();
         jobTitlesPage.editJobTitle("for editing", title, description, path, note);
         Assert.assertTrue(jobTitlesPage.isFound(title));
+
+        jobTitlesPage.delete(title);
     }
 
     @Test(dataProvider = "editOnInvalidJobTitle", dataProviderClass = TestDataProvider.class, groups = "JobTitles")
@@ -45,6 +49,9 @@ public class JobTitlesTest extends BaseTest {
         jobTitlesPage.openJobTitlesPage();
         jobTitlesPage.editJobTitle(previous, title, description, path, note);
         Assert.assertEquals(jobTitlesPage.jobTitleText(), "Edit Job Title");
+
+        jobTitlesPage.openJobTitlesPage();
+        jobTitlesPage.delete(previous);
     }
 
     @Test(groups = "JobTitles")
