@@ -41,13 +41,13 @@ public class JobTitlesPage extends BasePage {
     }
 
     public void addJobTitle(String title, String description, String fileName, String note) {
-        waitForElement(addButton);
         clickOn(addButton);
         jobTitleForm(title, description, getFilePath(fileName), note);
     }
 
     public void editJobTitle(String previousTitle, String newTitle, String newDescription, String fileName, String newNote) {
-        addJobTitle(previousTitle, "", "", "");
+        clickOn(addButton);
+        jobTitleForm(previousTitle, "", "", "");
         clickOn(By.xpath("//tr/td/a[contains(text(),'" + previousTitle + "')]"));
         clickOn(saveButton);
         clear(titleInput);
@@ -55,12 +55,13 @@ public class JobTitlesPage extends BasePage {
     }
 
     public void deleteJobTitle(String title) {
-        addJobTitle(title, "", "", "");
+        clickOn(addButton);
+        jobTitleForm(title, "", "", "");
         delete(title);
     }
 
     public void delete(String title) {
-        clickOn(By.xpath("//a[contains(text(),'" + title + "')]/../../td/input"));
+        clickOn(By.xpath("//a[contains(text(),'" + title + "')]/../../td[1]/input"));
         clickOn(deleteButton);
         waitForElement(dialogDeleteButton);
         clickOn(dialogDeleteButton);

@@ -58,8 +58,8 @@ public class JobTitlesTest extends BaseTest {
     public void deleteJobTitleTest() {
         JobTitlesPage jobTitlesPage = new JobTitlesPage(driver);
         jobTitlesPage.openJobTitlesPage();
-        jobTitlesPage.deleteJobTitle("forDeletion");
-        Assert.assertFalse(jobTitlesPage.isFound("forDeletion"));
+        jobTitlesPage.deleteJobTitle("for deletion");
+        Assert.assertFalse(jobTitlesPage.isFound("for deletion"));
     }
 
 }
