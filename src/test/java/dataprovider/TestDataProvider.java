@@ -31,7 +31,7 @@ public class TestDataProvider {
     @DataProvider(name = "addInvalidJobTitle")
     public static Object[][] addInvalidJobTitle() {
         CSVFileReader reader = new CSVFileReader();
-        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addInvalidData.csv", 5, 4);
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\addInvalidData.csv", 4, 4);
     }
 
     @DataProvider(name = "editOnValidJobTitle")
@@ -43,6 +43,14 @@ public class TestDataProvider {
     @DataProvider(name = "editOnInvalidJobTitle")
     public static Object[][] editOnInvalidJobTitle() {
         CSVFileReader reader = new CSVFileReader();
-        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnInvalidData.csv", 5, 5);
+        return reader.getCSVData("src\\test\\resources\\JobTitlesData\\editOnInvalidData.csv", 4, 4);
+    }
+
+    @DataProvider(name = "deleteJobTitle")
+    public static Object[][] deleteJobTitle() {
+        return new String[][] {
+                {"1"},
+                {"3"}
+        };
     }
 }

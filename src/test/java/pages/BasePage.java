@@ -17,7 +17,7 @@ public class BasePage {
     }
 
     protected void waitForElement(By element) {
-        WebDriverWait wait = new WebDriverWait(driver, 12);
+        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.presenceOfElementLocated(element));
     }
 

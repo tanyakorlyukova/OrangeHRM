@@ -19,8 +19,11 @@ public class JobTitlesPage extends BasePage {
     private By saveButton = By.id("btnSave");
     private By deleteButton = By.id("btnDelete");
     private By dialogDeleteButton = By.id("dialogDeleteBtn");
-    private By addConfirmation = By.id("saveHobTitleHeading");
+    private By heading = By.xpath("//div[@class='head']/h1");
     private By jobSpecInput = By.id("jobTitle_jobSpec");
+    private By jobTitlesList = By.xpath("//td/a");
+    private By fileExist = By.id("fileLink");
+    private By updateFile = By.id("jobTitle_jobSpecUpdate_3");
 
     public JobTitlesPage(WebDriver driver) {
         super(driver);
@@ -28,6 +31,10 @@ public class JobTitlesPage extends BasePage {
 
     public void openJobTitlesPage() {
         clickOn(adminModule);
+        openJobTitles();
+    }
+
+    public void openJobTitles() {
         clickOn(jobModule);
         clickOn(jobTitlesModule);
     }
@@ -45,30 +52,45 @@ public class JobTitlesPage extends BasePage {
         jobTitleForm(title, description, getFilePath(fileName), note);
     }
 
-    public void editJobTitle(String previousTitle, String newTitle, String newDescription, String fileName, String newNote) {
-        clickOn(addButton);
-        jobTitleForm(previousTitle, "", "", "");
-        clickOn(By.xpath("//tr/td/a[contains(text(),'" + previousTitle + "')]"));
-        clickOn(saveButton);
+    public void editJobTitle(String newTitle, String newDescription, String fileName, String newNote) {
+        if(listOfTitles().size() != 0) {
+            listOfTitles().get(1).click();
+            clickOn(saveButton);
+            clearForm();
+            jobTitleForm(newTitle, newDescription, getFilePath(fileName), newNote);
+        }
+    }
+
+    private void clearForm() {
         clear(titleInput);
-        jobTitleForm(newTitle, newDescription, getFilePath(fileName), newNote);
+        clear(descriptionInput);
+        find(jobSpecInput).getText();
+        if(findElements(fileExist).size() != 0) {
+            clickOn(updateFile);
+        }
+        clear(noteInput);
     }
 
-    public void deleteJobTitle(String title) {
-        clickOn(addButton);
-        jobTitleForm(title, "", "", "");
-        delete(title);
+    public void deleteJobTitle(int number) {
+        if(listOfTitles().size() != 0) {
+            delete(listOfTitles(), number);
+        }
     }
 
-    public void delete(String title) {
-        clickOn(By.xpath("//a[contains(text(),'" + title + "')]/../../td[1]/input"));
+    private void delete(List<WebElement> titles, int number) {
+        for(int i = 0; i < number; i++) {
+            String title = titles.get(i).getText();
+            clickOn(By.xpath("//a[contains(text(),'" + title + "')]/../../td[1]/input"));
+        }
         clickOn(deleteButton);
-        waitForElement(dialogDeleteButton);
-        clickOn(dialogDeleteButton);
+        if(number != 0) {
+            waitForElement(dialogDeleteButton);
+            clickOn(dialogDeleteButton);
+        }
     }
 
     public boolean isFound(String title) {
-        List<WebElement> allTitles = findElements(By.xpath("//td/a"));
+        List<WebElement> allTitles = findElements(jobTitlesList);
         boolean isFound = false;
         for (int i = 0; i < allTitles.size(); i++) {
             if (allTitles.get(i).getText().equals(title)) {
@@ -78,12 +100,22 @@ public class JobTitlesPage extends BasePage {
         return isFound;
     }
 
-    public String jobTitleText() {
-        return getTextFrom(addConfirmation);
+    public String getHeadingText() {
+        return getTextFrom(heading);
     }
 
     private String getFilePath(String fileName) {
-            File jobSpec = new File("src/test/resources/JobTitlesData/jobSpecs/" + fileName);
-            return jobSpec.getAbsolutePath();
+        File jobSpec = new File("src/test/resources/JobTitlesData/jobSpecs/" + fileName);
+        return jobSpec.getAbsolutePath();
     }
+
+    public int getCountOfJobTitles() {
+        List<WebElement> allTitles = listOfTitles();
+        return allTitles.size();
+    }
+
+    public List<WebElement> listOfTitles() {
+        return findElements(jobTitlesList);
+    }
+
 }
